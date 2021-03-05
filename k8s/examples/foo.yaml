@@ -1,0 +1,7 @@
+apiVersion: baz.info/v1alpha1
+kind: Foo
+metadata:
+  name: Simpsons
+spec:
+  bar:
+    - Hommer
