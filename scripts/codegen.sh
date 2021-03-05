@@ -30,7 +30,7 @@ cmd1="./generate-internal-groups.sh "deepcopy,defaulter,conversion,informer,list
 echo "Generating client codes..."
 echo "${REPO_DIR}"
 docker run --rm \
-           -v "${REPO_DIR}:/go/src/github.com/Marcos30004347/k8s-custom-API-Server/" \
+           -v "${REPO_DIR}:/go/src/github.com/Marcos30004347/k8s-custom-API-Server" \
            "${IMAGE_NAME}" ls /go/src/github.com/Marcos30004347/k8s-custom-API-Server/pkg
 
 docker run --rm \
