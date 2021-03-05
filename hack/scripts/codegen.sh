@@ -11,7 +11,7 @@ CUSTOM_RESOURCE_NAME="baz"
 CUSTOM_RESOURCE_VERSION="v1alpha1,v1beta1"
 
 echo "Building codegen Docker image..."
-docker build -f "${CURRENT_DIR}/hack/codegen.dockerfile" \
+docker build -f "${CURRENT_DIR}/hack/docker/codegen.dockerfile" \
              -t "${IMAGE_NAME}" \
              "${REPO_DIR}"
 

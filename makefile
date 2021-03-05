@@ -2,29 +2,23 @@ deps:
 	go get -t .
 
 startup:
-	chmod 777 ./scripts/minikube-startup.sh
-	./scripts/minikube-startup.sh
+	chmod 777 ./hack/scripts/minikube-startup.sh
+	./hack/scripts/minikube-startup.sh
 
 shutdown:
-	chmod 777 ./scripts/minikube-shutdown.sh
-	./scripts/minikube-shutdown.sh
+	chmod 777 ./hack/scripts/minikube-shutdown.sh
+	./hack/scripts/minikube-shutdown.sh
 
 build:
 	docker build -t marcos30004347/k8scustomapiserver .
 
 codegen:
-	chmod 777 ./scripts/codegen.sh
-	./scripts/codegen.sh
+	chmod 777 ./hack/scripts/codegen.sh
+	./hack/scripts/codegen.sh
 
 deploy:
-	kubectl apply -f ./k8s/ns.yaml
-	kubectl apply -f ./k8s/
+	kubectl apply -f ./artifacts/deploy/ns.yaml
+	kubectl apply -f ./artifacts/deploy/
 
 undeploy:
-	kubectl delete -f ./k8s/
-
-run:
-	sudo env "PATH=${PATH}" go run . --etcd-servers localhost:2379 \
-    --authentication-kubeconfig ${HOME}/.kube/config \
-    --authorization-kubeconfig ${HOME}/.kube/config \
-    --kubeconfig ${HOME}/.kube/config
+	kubectl delete -f ./artifacts/deploy/
