@@ -1,6 +1,7 @@
 package server
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"net"
@@ -77,6 +78,7 @@ func NewCommandStartCustomServer(
 		},
 	}
 
+	flag.Parse()
 	flags := cmd.Flags()
 	o.RecommendedOptions.AddFlags(flags)
 	utilfeature.DefaultMutableFeatureGate.AddFlag(flags)
@@ -84,6 +86,7 @@ func NewCommandStartCustomServer(
 	return cmd
 }
 
+// Config the custom server
 func (o *CustomServerOptions) Config() (*apiserver.Config, error) {
 	// Tell the recomended options to create a signed certificate if user did not specify it in the flag options
 	if err := o.RecommendedOptions.SecureServing.MaybeDefaultWithSelfSignedCerts("localhost", nil, []net.IP{net.ParseIP("127.0.0.1")}); err != nil {
@@ -125,6 +128,7 @@ func (o *CustomServerOptions) Config() (*apiserver.Config, error) {
 	return config, nil
 }
 
+// Run completes the server config
 func (o CustomServerOptions) Run(stopCh <-chan struct{}) error {
 	config, err := o.Config()
 	if err != nil {

@@ -44,6 +44,25 @@ func runServerAPI(wg *sync.WaitGroup) {
 }
 
 func main() {
+	// Read command line flags
+	kubeconfig := flag.String("kubeconfig", "", "a string")
+	master := flag.String("master", "", "a string")
+	certdir := flag.String("cert-dir", "", "a string")
+	etcd := flag.String("etcd-servers", "", "a string")
+	authenticationc := flag.String("authentication-kubeconfig", "", "a string")
+	authorizationk := flag.String("authorization-kubeconfig", "", "a string")
+	secureport := flag.String("secure-port", "", "a string")
+
+	klog.Info("Using secure port in: %s", *secureport)
+	klog.Info("Using certificate directory in: %s", *certdir)
+	klog.Info("Using kubeconfig in: %s", *kubeconfig)
+	klog.Info("Using etcd cluster in: %s", *etcd)
+	klog.Info("Using authentication-kubeconfig in: %s", *authenticationc)
+	klog.Info("Using authorization-kubeconfig in: %s", *authorizationk)
+
+	flag.Parse()
+
+	// Init logs
 	logs.InitLogs()
 	defer logs.FlushLogs()
 
@@ -53,7 +72,8 @@ func main() {
 	command = server.NewCommandStartCustomServer(options, stopCh)
 	command.Flags().AddGoFlagSet(flag.CommandLine)
 
-	cfg, err := clientcmd.BuildConfigFromFlags("", "")
+	cfg, err := clientcmd.BuildConfigFromFlags(*master, *kubeconfig)
+
 	if err != nil {
 		klog.Fatalf("Error building kubeconfig: %s", err.Error())
 	}

@@ -1,11 +1,11 @@
 deps:
 	go get -t .
 
-startup:
+start:
 	chmod 777 ./hack/scripts/minikube-startup.sh
 	./hack/scripts/minikube-startup.sh
 
-shutdown:
+stop:
 	chmod 777 ./hack/scripts/minikube-shutdown.sh
 	./hack/scripts/minikube-shutdown.sh
 
@@ -22,3 +22,6 @@ deploy:
 
 undeploy:
 	kubectl delete -f ./artifacts/deploy/
+
+run:
+	go run . --etcd-servers localhost:2379 --authentication-kubeconfig ~/.kube/config --authorization-kubeconfig ~/.kube/config --kubeconfig ~/.kube/config
