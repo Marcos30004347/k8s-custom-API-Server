@@ -9,3 +9,50 @@ rules:
 - apiGroups: ['admissionregistration.k8s.io']
   resources: ['mutatingwebhookconfigurations', 'validatingwebhookconfigurations']
   verbs: ['get', 'watch', 'list']
+
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups:
+  - apps
+  resources:
+  - deployments/status
+  verbs: ["get", "update", "patch"]
+- apiGroups:
+  - baz.info
+  resources:
+  - ats
+  - foos
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups:
+  - baz.info
+  resources:
+  - ats/status
+  - foos/status
+  verbs: ["get", "list", "update", "patch"]
+
+- apiGroups:
+  - flowcontrol.apiserver.k8s.io
+  resources:
+  - flowschemas
+  - prioritylevelconfigurations
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
