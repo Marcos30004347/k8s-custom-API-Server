@@ -6,6 +6,7 @@ import (
 	"time"
 
 	v1alpha1 "github.com/Marcos30004347/k8s-custom-API-Server/pkg/apis/baz/v1alpha1"
+	"github.com/Marcos30004347/k8s-custom-API-Server/pkg/apiserver"
 
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -19,7 +20,6 @@ import (
 	"k8s.io/apimachinery/pkg/util/wait"
 
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/kubernetes/scheme"
 
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/tools/record"
@@ -335,7 +335,7 @@ func NewController(
 	eventBroadcaster := record.NewBroadcaster()
 	eventBroadcaster.StartStructuredLogging(0)
 	eventBroadcaster.StartRecordingToSink(&typedcorev1.EventSinkImpl{Interface: kubeclientset.CoreV1().Events("")})
-	recorder := eventBroadcaster.NewRecorder(scheme.Scheme, corev1.EventSource{Component: controllerAgentName})
+	recorder := eventBroadcaster.NewRecorder(apiserver.Scheme, corev1.EventSource{Component: controllerAgentName})
 
 	controller := &Controller{
 		kubeclientset:     kubeclientset,

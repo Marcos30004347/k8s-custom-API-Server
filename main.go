@@ -38,6 +38,8 @@ func runController(wg *sync.WaitGroup) {
 }
 
 func runServerAPI(wg *sync.WaitGroup) {
+	defer wg.Done()
+
 	if err := command.Execute(); err != nil {
 		klog.Fatal(err)
 	}
